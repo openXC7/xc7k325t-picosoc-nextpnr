@@ -9,11 +9,14 @@ set_property IOSTANDARD LVCMOS33 [get_ports {led[0]}]
 set_property LOC H26 [get_ports led[1]]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[1]}]
 
-set_property LOC AF10 [get_ports sw]
+# SW2 on daughterboard
+set_property LOC B20 [get_ports sw]
 set_property IOSTANDARD LVCMOS33 [get_ports {sw}]
 
-set_property LOC A8 [get_ports rx]
+# daughterboard J1:5
+set_property LOC B25 [get_ports rx]
 set_property IOSTANDARD LVCMOS33 [get_ports {rx}]
 
-set_property LOC A9 [get_ports tx]
+# daughterboard J1:6
+set_property LOC B26 [get_ports tx]
 set_property IOSTANDARD LVCMOS33 [get_ports {tx}]
