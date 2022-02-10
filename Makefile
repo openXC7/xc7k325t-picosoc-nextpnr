@@ -20,7 +20,7 @@ endif
 all: ${PROJECT_NAME}.bit
 
 ${PROJECT_NAME}.json: ${BOARD}.v picosoc_noflash.v picorv32.v progmem.v simpleuart.v
-	yosys -p "synth_xilinx -flatten -abc9 -nobram -arch xc7 -top top; write_json ${PROJECT_NAME}.json" $^
+	yosys -p "synth_xilinx -flatten -abc9 -arch xc7 -top top; write_json ${PROJECT_NAME}.json" $^
 
 ${PROJECT_NAME}.fasm: ${PROJECT_NAME}.json
 	nextpnr-xilinx --chipdb ${CHIPDB_DIR}/${PART}.bin --xdc ${PROJECT_NAME}-${BOARD}.xdc --json $< --write ${PROJECT_NAME}_routed.json --fasm $@ --verbose --debug
