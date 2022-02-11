@@ -8,6 +8,7 @@ PYTHONPATH ?= ${XRAY_DIR}
 
 ifeq (${BOARD}, qmtech)
 PART = xc7k325tffg676-1
+FREQ = --freq 50
 else ifeq (${BOARD}, genesys2)
 PART = xc7k325tffg900-2
 else
@@ -26,7 +27,7 @@ ${PROJECT_NAME}.json: ${BOARD}.v picosoc_noflash.v picorv32.v progmem.v simpleua
 	yosys -p "synth_xilinx -flatten -abc9 -arch xc7 -top top; write_json ${PROJECT_NAME}.json" $^
 
 ${PROJECT_NAME}.fasm: ${PROJECT_NAME}.json
-	nextpnr-xilinx --chipdb ${CHIPDB_DIR}/${PART}.bin --xdc ${PROJECT_NAME}-${BOARD}.xdc --json $< --write ${PROJECT_NAME}_routed.json --fasm $@ --verbose --debug
+	nextpnr-xilinx ${FREQ} --chipdb ${CHIPDB_DIR}/${PART}.bin --xdc ${PROJECT_NAME}-${BOARD}.xdc --json $< --write ${PROJECT_NAME}_routed.json --fasm $@
 
 ${PROJECT_NAME}.frames: ${PROJECT_NAME}.fasm
 	@. "${XRAY_DIR}/utils/environment.sh"
