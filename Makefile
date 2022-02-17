@@ -11,6 +11,7 @@ PART = xc7k325tffg676-1
 FREQ = --freq 50
 else ifeq (${BOARD}, genesys2)
 PART = xc7k325tffg900-2
+PROG = openFPGALoader --cable digilent --bitstream picosoc.bit --ftdi-channel 1
 else
 .PHONY: check
 check:
@@ -22,6 +23,7 @@ endif
 
 .PHONY: all
 all: ${PROJECT_NAME}.bit
+	${PROG}
 
 ${PROJECT_NAME}.json: ${BOARD}.v picosoc_noflash.v picorv32.v progmem.v simpleuart.v
 	yosys -p "synth_xilinx -flatten -abc9 -arch xc7 -top top; write_json ${PROJECT_NAME}.json" $^
